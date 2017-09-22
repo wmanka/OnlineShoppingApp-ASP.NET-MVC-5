@@ -1,0 +1,40 @@
+﻿@model OnlineShoppingApp.ViewModels.ItemFormViewModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add New Item</h2>
+
+@using (Html.BeginForm("Save", "Items", FormMethod.Post, new { @id = "ItemForm", enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(m => m.Item.Id)
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Item.Name)
+        @Html.TextBoxFor(m => m.Item.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Item.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Item.Description)
+        @Html.TextBoxFor(m => m.Item.Description, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Item.Description)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Item.Price)
+        @Html.TextBoxFor(m => m.Item.Price, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Item.Price)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Item.CategoryId)
+        @Html.DropDownListFor(m => m.Item.CategoryId, new SelectList(Model.Categories, "Id", "Name"), "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Item.CategoryId)
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval.js")
+}
