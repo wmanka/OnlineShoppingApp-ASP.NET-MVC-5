@@ -215,6 +215,10 @@
     <Compile Include="Migrations\201709221022589_SeedCategoriesTable.Designer.cs">
       <DependentUpon>201709221022589_SeedCategoriesTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709222043241_AddAppUserPropertyToItem.cs" />
+    <Compile Include="Migrations\201709222043241_AddAppUserPropertyToItem.Designer.cs">
+      <DependentUpon>201709222043241_AddAppUserPropertyToItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -224,6 +228,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ItemFormViewModel.cs" />
+    <Compile Include="ViewModels\ItemsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -457,6 +462,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Items\Index.cshtml" />
     <Content Include="Views\Items\ItemForm.cshtml" />
+    <Content Include="Views\Items\MyItems.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -480,6 +486,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709221022589_SeedCategoriesTable.resx">
       <DependentUpon>201709221022589_SeedCategoriesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709222043241_AddAppUserPropertyToItem.resx">
+      <DependentUpon>201709222043241_AddAppUserPropertyToItem.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

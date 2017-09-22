@@ -1,0 +1,33 @@
+﻿@model OnlineShoppingApp.ViewModels.ItemsViewModel
+
+@{
+    ViewBag.Title = "MyItems";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="page-header">My Items</h2>
+
+<div class="col-md-10">
+    <table id="items" class=" table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Description</td>
+                    <td>@item.Category.Name</td>
+                    <td>@item.Price</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

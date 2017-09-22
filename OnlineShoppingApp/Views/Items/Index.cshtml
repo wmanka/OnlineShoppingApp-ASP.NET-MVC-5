@@ -1,55 +1,40 @@
-﻿@{
+﻿@model OnlineShoppingApp.ViewModels.ItemsViewModel
+
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2 class="page-header">Products</h2>
+
+<div class="col-md-2">
+    <ul id="categories">
+        @foreach(var category in Model.Categories)
+        {
+            <li data-category-id="@category.Id">@category.Name</li>
+        }
+    </ul>
+</div>
+<div class="col-md-10">
     <table id="items" class=" table table-bordered table-hover">
         <thead>
             <tr>
                 <th>Name</th>
                 <th>Description</th>
-                <th>Price</th>
                 <th>Category</th>
-                <th>Delete</th>
+                <th>Price</th>
             </tr>
         </thead>
         <tbody>
-
-        </tbody>      
+           @foreach(var item in Model.Items)
+           {
+               <tr>
+                   <td>@item.Name</td>
+                   <td>@item.Description</td>
+                   <td>@item.Category.Name</td>
+                   <td>@item.Price</td>
+               </tr>
+           }
+        </tbody>
     </table>
-
-@section Scripts {
-    <script>
-        $(document).ready(function () {
-            $("#items").DataTable(
-                {
-                    ajax:
-                    {
-                        url: "/api/items",
-                        dataSrc: ""
-                    },
-                    columns:
-                    [
-                        {
-                            data: "Name",
-                        },
-                        {
-                            data: "Description",
-                        },
-                        {
-                            data: "Price",
-                        },
-                        {
-                            data: "Category.Name",
-                        },
-                        {
-                            data: "Description",
-                        }
-                    ]
-                }
-            )
-        });
-
-    </script>
-    }
+</div>

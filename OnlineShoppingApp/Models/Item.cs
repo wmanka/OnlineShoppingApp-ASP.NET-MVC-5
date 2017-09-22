@@ -23,6 +23,9 @@ namespace OnlineShoppingApp.Models
 
         public int CategoryId { get; set; }
 
+        [DataType(DataType.ImageUrl)]
         public string PictureUrl { get; set; }
+
+        public virtual ApplicationUser User { get; set; }
     }
 }

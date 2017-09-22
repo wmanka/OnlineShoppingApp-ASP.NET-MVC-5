@@ -6,6 +6,8 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
+using Microsoft.AspNet.Identity;
 
 namespace OnlineShoppingApp.Controllers
 {
@@ -20,9 +22,31 @@ namespace OnlineShoppingApp.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var viewModel = new ItemsViewModel()
+            {
+                Items = context.Items.Include(m => m.Category).ToList(),
+                Categories = context.Categories.ToList()
+            };
+
+            return View(viewModel);
         }
 
+        public ActionResult MyItems()
+        {
+            var userId = User.Identity.GetUserId();
+            var user = context.Users.FirstOrDefault(u => u.Id == userId);
+            var items = context.Items.Include(m => m.Category).ToList().Where(m => m.User == user);
+
+            var viewModel = new ItemsViewModel()
+            {
+                Items = items,
+                Categories = context.Categories.ToList()
+            };
+
+            return View(viewModel);
+        }
+
+        [Authorize]
         public ActionResult Create()
         {
             var viewModel = new ItemFormViewModel()
@@ -35,6 +59,7 @@ namespace OnlineShoppingApp.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Save(Item item)
         {
             if (!ModelState.IsValid)
@@ -47,6 +72,11 @@ namespace OnlineShoppingApp.Controllers
 
                 return View("ItemForm", viewModel);
             }
+
+            var userId = User.Identity.GetUserId();
+            var currentUser = context.Users.Single(u => u.Id == userId);
+
+            item.User = currentUser;
 
             if (item.Id == 0)
             {
