@@ -11,7 +11,7 @@
     <ul id="categories">
         @foreach(var category in Model.Categories)
         {
-            <li data-category-id="@category.Id">@category.Name</li>
+            <li>@Html.ActionLink(@category.Name, "Filtered", new { categoryId = category.Id} )</li>
         }
     </ul>
 </div>

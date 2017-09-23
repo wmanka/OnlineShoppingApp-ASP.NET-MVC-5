@@ -14,6 +14,12 @@ namespace OnlineShoppingApp
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                "ItemsByCategory",
+                url: "Items/Filtered/{categoryId}",
+                defaults: new { controller = "Items", action = "Filtered"} 
+                );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

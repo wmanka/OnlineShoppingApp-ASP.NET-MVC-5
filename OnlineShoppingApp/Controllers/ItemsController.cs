@@ -32,6 +32,17 @@ namespace OnlineShoppingApp.Controllers
             return View(viewModel);
         }
 
+        public ActionResult Filtered(int? categoryId)
+        {
+            var viewModel = new ItemsViewModel()
+            {
+                Items = context.Items.Include(m => m.Category).ToList().Where(m => m.CategoryId == categoryId),
+                Categories = context.Categories.ToList()
+            };
+
+            return View("Index", viewModel);
+        }
+
         public ActionResult MyItems()
         {
             var userId = User.Identity.GetUserId();
