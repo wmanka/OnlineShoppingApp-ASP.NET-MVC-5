@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using Microsoft.AspNet.Identity;
+using System.Net;
 
 namespace OnlineShoppingApp.Controllers
 {
@@ -82,11 +83,42 @@ namespace OnlineShoppingApp.Controllers
             {
                 context.Items.Add(item);
             }
+            else
+            {
+                var itemInDb = context.Items.Single(i => i.Id == item.Id);
+                itemInDb.Name = item.Name;
+                itemInDb.Description = item.Description;
+                itemInDb.Price = item.Price;
+                itemInDb.PictureUrl = item.PictureUrl;
+            }
 
             context.SaveChanges();
 
             return RedirectToAction("Index", "Items");
 
+        }
+
+        [Authorize]
+        public ActionResult Edit(int id)
+        {
+            var item = context.Items.SingleOrDefault(i => i.Id == id);
+
+            var userId = User.Identity.GetUserId();
+            var curentUser = context.Users.Single(u => u.Id == userId);
+
+            if (!(item.User == curentUser))
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            if (item == null)
+                return HttpNotFound();
+
+            var viewModel = new ItemFormViewModel()
+            {
+                Item = item,
+                Categories = context.Categories.ToList()
+            };
+
+            return View("ItemForm", viewModel);
         }
     }
 }

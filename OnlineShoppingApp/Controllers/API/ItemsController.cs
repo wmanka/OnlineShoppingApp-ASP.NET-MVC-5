@@ -23,5 +23,17 @@ namespace OnlineShoppingApp.Controllers.API
         {
             return context.Items.Include(m => m.Category).ToList();
         }
+
+        [HttpDelete]
+        [Authorize]
+        public IHttpActionResult Delete(int id)
+        {
+            var item = context.Items.SingleOrDefault(i => i.Id == id);
+
+            context.Items.Remove(item);
+            context.SaveChanges();
+
+            return Ok();
+        }
     }
 }

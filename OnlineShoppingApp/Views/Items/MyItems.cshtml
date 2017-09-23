@@ -15,19 +15,39 @@
                 <th>Description</th>
                 <th>Category</th>
                 <th>Price</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model.Items)
             {
                 <tr>
-                    <td>@item.Name</td>
+                    <td><a href="@Url.Action("Edit", "Items", new { id = item.Id })">@item.Name</a> </td>
                     <td>@item.Description</td>
                     <td>@item.Category.Name</td>
                     <td>@item.Price</td>
+                    <td><a class="js-delete" data-item-id="@item.Id">Delete</a></td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $(".js-delete").click(function (e) {
+                var button = $(e.target);
+
+                $.ajax({
+                    url: "/api/Items/" + button.attr("data-item-id"),
+                    method: "DELETE",
+                    success: function () {
+                        button.parents("tr").remove();
+                    }     
+                });
+            });
+        });
+    </script>
+}
 
