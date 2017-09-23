@@ -131,5 +131,18 @@ namespace OnlineShoppingApp.Controllers
 
             return View("ItemForm", viewModel);
         }
+
+        public ActionResult Details(int? id)
+        {
+            if(id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var item = context.Items.Include(i => i.Category).SingleOrDefault(i => i.Id == id);
+
+            if (item == null)
+                return HttpNotFound();
+
+            return View(item);
+        }
     }
 }

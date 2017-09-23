@@ -1,0 +1,16 @@
+﻿@model OnlineShoppingApp.Models.Item
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="page-header">@Model.Name</h2>
+
+<div>
+    <p>@Model.Description</p>
+    <p>Price: <b>$@Model.Price</b></p>
+    <p>Seller: @Model.User.UserName</p>
+</div>
+<br/>
+    <button class="btn btn-primary">Add to cart</button>
