@@ -5,12 +5,25 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 class="page-header">@Model.Name</h2>
+<h2 class="page-header"><b>@Model.Name</b> - $@Model.Price</h2>
 
-<div>
-    <p>@Model.Description</p>
-    <p>Price: <b>$@Model.Price</b></p>
-    <p>Seller: @Model.User.UserName</p>
+<div class="col-md-4">
+    <img src="@Model.PictureUrl" style="overflow: hidden; position: relative; width:300px; height:300px;" />
 </div>
-<br/>
+
+<div class="col-md-8">
+    <p><b>Description:</b><br />@Model.Description</p>
+    <p><b>Price:</b> $@Model.Price</p>
+    <p><b>Category:</b> @Model.Category.Name</p>
+    <p><b>Seller:</b> @Model.User.UserName</p>
+    <p>
+        <b>Payment:</b>
+        <img src="~/Content/Images/Payment/logoPayPal_51x14.png" style="overflow: hidden; position: relative; width:30px; height:15px;" />
+        <img src="~/Content/Images/Payment/logo1.png" style="overflow: hidden; position: relative; width:30px; height:15px;" />
+        <img src="~/Content/Images/Payment/logo2.jpg" style="overflow: hidden; position: relative; width:30px; height:15px;" />
+    </p>
+    <br />
     <button class="btn btn-primary">Add to cart</button>
+    <button class="btn btn-default">Add to wishlist</button>
+</div>
+

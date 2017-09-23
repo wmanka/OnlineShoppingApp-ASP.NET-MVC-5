@@ -340,6 +340,9 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\Images\Payment\logo1.png" />
+    <Content Include="Content\Images\Payment\logo2.jpg" />
+    <Content Include="Content\Images\Payment\logoPayPal_51x14.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

@@ -11,6 +11,7 @@
     <table id="items" class=" table table-bordered table-hover">
         <thead>
             <tr>
+                <th>Image</th>
                 <th>Name</th>
                 <th>Description</th>
                 <th>Category</th>
@@ -22,10 +23,13 @@
             @foreach (var item in Model.Items)
             {
                 <tr>
+                    <td>
+                        <img src="@item.PictureUrl" style="overflow: hidden; position: relative; width:150px; height:150px;" />
+                    </td>
                     <td><a href="@Url.Action("Edit", "Items", new { id = item.Id })">@item.Name</a> </td>
                     <td>@item.Description</td>
                     <td>@item.Category.Name</td>
-                    <td>@item.Price</td>
+                    <td>$@item.Price</td>
                     <td><a class="js-delete" data-item-id="@item.Id">Delete</a></td>
                 </tr>
             }

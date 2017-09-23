@@ -17,6 +17,7 @@
     <table id="items" class=" table table-bordered table-hover col-md-10">
         <thead>
             <tr>
+                <th>Photo</th>
                 <th>Name</th>
                 <th>Description</th>
                 <th>Category</th>
@@ -28,6 +29,9 @@
             @foreach (var item in Model.Items)
             {
                 <tr>
+                    <td>
+                        <img src="@item.PictureUrl" style="overflow: hidden; position: relative; width:150px; height:150px;" />
+                    </td>
                     <td>@item.Name</td>
                     <td>@item.Description</td>
                     <td>@item.Category.Name</td>

@@ -14,28 +14,48 @@
 
     <div class="form-group">
         @Html.LabelFor(m => m.Item.Name)
-        @Html.TextBoxFor(m => m.Item.Name, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Item.Name)
+        @Html.TextBoxFor(m => m.Item.Name, new { @class = "form-control", autofocus = "autofocus" })
+        @Html.ValidationMessageFor(m => m.Item.Name, "", new { @class = "text-danger" })
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Item.Description)
         @Html.TextBoxFor(m => m.Item.Description, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Item.Description)
+        @Html.ValidationMessageFor(m => m.Item.Description, "", new { @class = "text-danger" })
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Item.Price)
         @Html.TextBoxFor(m => m.Item.Price, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Item.Price)
+        @Html.ValidationMessageFor(m => m.Item.Price, "", new { @class = "text-danger" } )
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Item.CategoryId)
         @Html.DropDownListFor(m => m.Item.CategoryId, new SelectList(Model.Categories, "Id", "Name"), "", new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Item.CategoryId)
+        @Html.ValidationMessageFor(m => m.Item.CategoryId, "", new { @class = "text-danger" })
     </div>
-
+    <a class="js-add-url">Add picture Url</a>
+    <div class="form-group js-show">
+        @Html.LabelFor(m => m.Item.PictureUrl)
+        @Html.TextBoxFor(m => m.Item.PictureUrl, new { @class = "form-control", placeholder = "www.webpage.com/image" })
+        @Html.ValidationMessageFor(m => m.Item.PictureUrl)
+    </div>
+    <br />
     <button type="submit" class="btn btn-primary">Save</button>
+    <a class="btn btn-default" href="@Url.Action("Index", "Items")">Cancel</a>
 }
 
 @section Scripts {
+
     @Scripts.Render("~/bundles/jqueryval.js")
+
+    <script>
+        $(document).ready(function () {
+
+            $(".js-show").hide();
+
+            $(".js-add-url").click(function () {
+                $(".js-show").show();
+                $(".js-add-url").hide();
+            });
+        });
+    </script>
 }

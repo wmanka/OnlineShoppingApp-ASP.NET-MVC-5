@@ -21,9 +21,11 @@ namespace OnlineShoppingApp.Models
 
         public Category Category { get; set; }
 
+        [Display(Name = "Category")]
         public int CategoryId { get; set; }
 
         [DataType(DataType.ImageUrl)]
+        [Display(Name = "Image")]
         public string PictureUrl { get; set; }
 
         public virtual ApplicationUser User { get; set; }
