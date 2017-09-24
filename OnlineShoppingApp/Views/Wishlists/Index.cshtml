@@ -1,0 +1,39 @@
+﻿@model IEnumerable<OnlineShoppingApp.Models.Wishlist>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Wishlist</h2>
+
+<div>
+    <table class=" table table-responsive table-hover col-md-10">
+        <thead>
+            <tr></tr>
+        </thead>
+        <tbody>
+            @foreach (var wishlistItem in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="@wishlistItem.Item.PictureUrl" style="overflow: hidden; position: relative; width:100px; height:100px;" />
+                    </td>
+                    <td>
+                        <b>@Html.ActionLink(wishlistItem.Item.Name, "Details", new { id = wishlistItem.ItemId })</b>
+                        <br />
+                        <i>Category: @wishlistItem.Item.Category.Name</i>
+                    </td>
+                    <td>
+                        <b>$@(wishlistItem.Item.Price)</b>
+                        <br />
+                        @Html.ActionLink("Add to cart ", "OrderNow", "ShoppingCart", new { id = wishlistItem.ItemId}, null)<span class="glyphicon glyphicon-shopping-cart"></span>
+                        <br />
+                        @Html.ActionLink("Remove from wishlist ", "RemoveFromWishlist", "Wishlists", new { id = wishlistItem.ItemId }, null)<span class="glyphicon glyphicon-heart-empty"></span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

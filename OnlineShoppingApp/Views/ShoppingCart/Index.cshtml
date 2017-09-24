@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Shopping Cart</h2>
+<h2 class="page-header">Shopping Cart</h2>
 
 @if ((List<Cart>)Session["Cart"] == null)
 {
@@ -17,9 +17,10 @@ else
     <table class="table table-hover table-bordered">
         <thead>
             <tr>
+                <th>Image</th>
                 <th>Name</th>
-                <th>Price</th>
                 <th>Quantity</th>
+                <th>Price</th>
                 <th>Total</th>
                 <th></th>
             </tr>
@@ -28,12 +29,14 @@ else
             @foreach (var cart in (List<Cart>)Session["Cart"])
             {
                 <tr>
-                    <td>@cart.Item.Name</td>
-                    <td>$@cart.Item.Price</td>
                     <td>
-                        <input type="text" name="quantity" value="@cart.Quantity" />
-                        <br />
+                        <img src="@cart.Item.PictureUrl" style="overflow: hidden; position: relative; width:50px; height:50px;" />
                     </td>
+                    <td>@cart.Item.Name</td>
+                    <td>
+                        @cart.Quantity
+                    </td>
+                    <td>$@cart.Item.Price</td>
                     <td>$@(String.Format("{0:N0}", cart.Item.Price * cart.Quantity))</td>
                     <td>
                         @Html.ActionLink("Delete", "Delete", "ShoppingCart",
@@ -42,7 +45,7 @@ else
             </tr>
             }
             <tr>
-                <td colspan="3"></td>
+                <td colspan="4"></td>
                 <td colspan="2">
                     Total:
                     @{
@@ -55,13 +58,5 @@ else
         </tbody>
     </table>
 }
-
+<span class="glyphicon glyphicon-arrow-left"></span>
 @Html.ActionLink("Continue Shopping", "Index", "Items")
-
-@section Scripts{
-    <script>
-        $(document).ready(function () {
-
-        });
-    </script>
-}

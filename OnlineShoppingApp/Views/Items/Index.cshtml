@@ -34,9 +34,9 @@
                     <td>
                         <b>$@(item.Price)</b>
                         <br />
-                        @Html.ActionLink("Add to cart", "OrderNow", "ShoppingCart", new { id = item.Id }, null )<span class="glyphicon glyphicon-shopping-cart"></span>
+                        @Html.ActionLink("Add to cart ", "OrderNow", "ShoppingCart", new { id = item.Id }, null )<span class="glyphicon glyphicon-shopping-cart"></span>
                         <br />
-                        <a>Add to wishlist </a><span class="glyphicon glyphicon-heart-empty"></span>
+                        @Html.ActionLink("Add to wishlist ", "AddToWishlist", "Wishlists", new { id = item.Id}, null)<span class="glyphicon glyphicon-heart-empty"></span>
                     </td>
                 </tr>
             }
