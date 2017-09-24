@@ -43,6 +43,7 @@ namespace OnlineShoppingApp.Controllers
             return View("Index", viewModel);
         }
 
+        [Authorize]
         public ActionResult MyItems()
         {
             var userId = User.Identity.GetUserId();

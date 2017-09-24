@@ -34,7 +34,9 @@ else
                     </td>
                     <td>@cart.Item.Name</td>
                     <td>
+                        @Html.ActionLink("+ ", "AddOne", "ShoppingCart", new { id = cart.Item.Id }, null)
                         @cart.Quantity
+                        @Html.ActionLink(" -", "RemoveOne", "ShoppingCart", new { id = cart.Item.Id}, null)
                     </td>
                     <td>$@cart.Item.Price</td>
                     <td>$@(String.Format("{0:N0}", cart.Item.Price * cart.Quantity))</td>

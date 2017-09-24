@@ -74,5 +74,31 @@ namespace OnlineShoppingApp.Controllers
 
             return View("Index");
         }
+
+        public ActionResult AddOne(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var check = IsExisting(id);
+            List<Cart> lsCart = (List<Cart>)Session["Cart"];
+            lsCart[check].Quantity++;
+
+            return View("Index");
+        }
+
+        public ActionResult RemoveOne(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var check = IsExisting(id);
+            List<Cart> lsCart = (List<Cart>)Session["Cart"];
+            lsCart[check].Quantity--;
+            if (lsCart[check].Quantity == 0)
+                lsCart.RemoveAt(check);
+
+            return View("Index");
+        }
     }
 }
