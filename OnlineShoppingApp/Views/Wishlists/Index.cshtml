@@ -7,6 +7,12 @@
 
 <h2>Wishlist</h2>
 
+@if(!Model.Any())
+{
+    <br />
+    <p>Your wishlist is empty.</p>
+}
+
 <div>
     <table class=" table table-responsive table-hover col-md-10">
         <thead>

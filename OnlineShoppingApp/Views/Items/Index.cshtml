@@ -22,7 +22,7 @@
         <tbody>
             @foreach (var item in Model.Items)
             {
-                <tr>
+                <tr onclick="location.href = '@(Url.Action("Details", "Items", new { id = item.Id }))'">
                     <td>
                         <img src="@item.PictureUrl" style="overflow: hidden; position: relative; width:100px; height:100px;" />
                     </td>

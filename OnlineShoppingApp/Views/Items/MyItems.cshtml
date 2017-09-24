@@ -11,12 +11,6 @@
     <table id="items" class=" table table-bordered table-hover">
         <thead>
             <tr>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Category</th>
-                <th>Price</th>
-                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -24,7 +18,7 @@
             {
                 <tr>
                     <td>
-                        <img src="@item.PictureUrl" style="overflow: hidden; position: relative; width:150px; height:150px;" />
+                        <img src="@item.PictureUrl" style="overflow: hidden; position: relative; width:100px; height:100px;" />
                     </td>
                     <td><a href="@Url.Action("Edit", "Items", new { id = item.Id })">@item.Name</a> </td>
                     <td>@item.Description</td>
@@ -50,7 +44,7 @@
                             url: "/api/Items/" + button.attr("data-item-id"),
                             method: "DELETE",
                             success: function () {
-                                button.parents("tr").remove();
+                                button.parents("tr").fadeOut();
                             }
                         });
                     }

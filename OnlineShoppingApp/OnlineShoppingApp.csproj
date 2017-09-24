@@ -225,6 +225,10 @@
     <Compile Include="Migrations\201709241741368_AddWishlistTable.Designer.cs">
       <DependentUpon>201709241741368_AddWishlistTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709242035172_AddNamePropToAppUser.cs" />
+    <Compile Include="Migrations\201709242035172_AddNamePropToAppUser.Designer.cs">
+      <DependentUpon>201709242035172_AddNamePropToAppUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Cart.cs" />
@@ -508,6 +512,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709241741368_AddWishlistTable.resx">
       <DependentUpon>201709241741368_AddWishlistTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709242035172_AddNamePropToAppUser.resx">
+      <DependentUpon>201709242035172_AddNamePropToAppUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
