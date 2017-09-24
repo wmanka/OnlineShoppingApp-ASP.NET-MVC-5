@@ -22,7 +22,7 @@
         <tbody>
             @foreach (var item in Model.Items)
             {
-                <tr onclick="location.href = '@(Url.Action("Details", "Items", new { id = item.Id }))'">
+                <tr >
                     <td>
                         <img src="@item.PictureUrl" style="overflow: hidden; position: relative; width:100px; height:100px;" />
                     </td>
@@ -36,10 +36,30 @@
                         <br />
                         @Html.ActionLink("Add to cart ", "OrderNow", "ShoppingCart", new { id = item.Id }, null )<span class="glyphicon glyphicon-shopping-cart"></span>
                         <br />
-                        @Html.ActionLink("Add to wishlist ", "AddToWishlist", "Wishlists", new { id = item.Id}, null)<span class="glyphicon glyphicon-heart-empty"></span>
+                        <a class="js-add-wishlist" data-item-id="@item.Id">Add to wishlist </a><span class="glyphicon glyphicon-heart-empty"></span>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(".js-add-wishlist").click(function (e) {
+                var button = $(e.target);
+                $.ajax(
+                    {
+                        url: "/api/Wishlist/" + button.attr('data-item-id'),
+                        method: "GET",
+                        success: function () {
+                            toastr.success("Item successfully added to your wishlist.");
+                        },
+                        
+                    }
+                );
+            })
+        });
+    </script>
+}

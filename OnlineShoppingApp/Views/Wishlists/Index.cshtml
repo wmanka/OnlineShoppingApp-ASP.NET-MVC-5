@@ -35,11 +35,36 @@
                         <br />
                         @Html.ActionLink("Add to cart ", "OrderNow", "ShoppingCart", new { id = wishlistItem.ItemId}, null)<span class="glyphicon glyphicon-shopping-cart"></span>
                         <br />
-                        @Html.ActionLink("Remove from wishlist ", "RemoveFromWishlist", "Wishlists", new { id = wishlistItem.ItemId }, null)<span class="glyphicon glyphicon-heart-empty"></span>
+                        <a class="js-delete" data-wishitem-id="@wishlistItem.ItemId">Remove from wishlist </a><span class="glyphicon glyphicon-heart-empty"></span>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(".js-delete").click(function (e) {
+                var button = $(e.target);
+                bootbox.confirm('Are you sure you want to remove this item from your wishlist?', function (result) {
+                    if (result)
+                    {
+                        $.ajax(
+                            {
+                                url: "/api/Wishlist/" + button.attr('data-wishitem-id'),
+                                method: "DELETE",
+                                success: function () {
+                                    button.parents("tr").fadeOut();
+                                    toastr.success("Item successfully removed.")
+                                }
+                            }
+                        );
+                    }
+                })
+            });
+        });
+    </script>
+}
 
