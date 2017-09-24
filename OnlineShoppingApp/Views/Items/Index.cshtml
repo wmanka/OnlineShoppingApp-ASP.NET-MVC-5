@@ -14,15 +14,9 @@
     </ul>
 </div>
 <div class="col-md-10">
-    <table id="items" class=" table table-bordered table-hover col-md-10">
+    <table id="items" class=" table table-responsive table-hover col-md-10">
         <thead>
             <tr>
-                <th>Photo</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Category</th>
-                <th>Price</th>
-                <th>Details</th>
             </tr>
         </thead>
         <tbody>
@@ -30,13 +24,20 @@
             {
                 <tr>
                     <td>
-                        <img src="@item.PictureUrl" style="overflow: hidden; position: relative; width:150px; height:150px;" />
+                        <img src="@item.PictureUrl" style="overflow: hidden; position: relative; width:100px; height:100px;" />
                     </td>
-                    <td>@item.Name</td>
-                    <td>@item.Description</td>
-                    <td>@item.Category.Name</td>
-                    <td>$@(item.Price)</td>
-                    <td>@Html.ActionLink("Details", "Details", new { id = item.Id } )</td>
+                    <td>
+                        <b>@Html.ActionLink(@item.Name, "Details", new { id = item.Id })</b>
+                        <br />
+                        <i>Category: @item.Category.Name</i>
+                    </td>
+                    <td>
+                        <b>$@(item.Price)</b>
+                        <br />
+                        @Html.ActionLink("Add to cart", "OrderNow", "ShoppingCart", new { id = item.Id }, null )<span class="glyphicon glyphicon-shopping-cart"></span>
+                        <br />
+                        <a>Add to wishlist </a><span class="glyphicon glyphicon-heart-empty"></span>
+                    </td>
                 </tr>
             }
         </tbody>

@@ -1,0 +1,67 @@
+﻿@using OnlineShoppingApp.Models;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Shopping Cart</h2>
+
+@if ((List<Cart>)Session["Cart"] == null)
+{
+    <p>Cart is empty.</p>
+}
+else
+{
+
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cart in (List<Cart>)Session["Cart"])
+            {
+                <tr>
+                    <td>@cart.Item.Name</td>
+                    <td>$@cart.Item.Price</td>
+                    <td>
+                        <input type="text" name="quantity" value="@cart.Quantity" />
+                        <br />
+                    </td>
+                    <td>$@(String.Format("{0:N0}", cart.Item.Price * cart.Quantity))</td>
+                    <td>
+                        @Html.ActionLink("Delete", "Delete", "ShoppingCart",
+                   new { id = cart.Item.Id }, new { onclick = "return confirm('Are you sure you want to delete this item?');" })
+                </td>
+            </tr>
+            }
+            <tr>
+                <td colspan="3"></td>
+                <td colspan="2">
+                    Total:
+                    @{
+                        List<Cart> temp = (List<Cart>)Session["Cart"];
+                        var total = String.Format("{0:N0}", temp.Sum(x => x.Quantity * x.Item.Price));
+                    }
+                    <b>$@total</b>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}
+
+@Html.ActionLink("Continue Shopping", "Index", "Items")
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+
+        });
+    </script>
+}
