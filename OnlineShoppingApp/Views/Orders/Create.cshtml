@@ -1,0 +1,43 @@
+﻿@model OnlineShoppingApp.ViewModels.OrderViewModel
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm("Create", "Orders"))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Order.Id)
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Order.CustomerName)
+        @Html.TextBoxFor(m => m.Order.CustomerName, new { @class = "form-control", autofocus = "autofocus" })
+        @Html.ValidationMessageFor(m => m.Order.CustomerName, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Order.CustomerEmail)
+        @Html.TextBoxFor(m => m.Order.CustomerEmail, new { @class = "form-control", autofocus = "autofocus" })
+        @Html.ValidationMessageFor(m => m.Order.CustomerEmail, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Order.CustomerAddress)
+        @Html.TextBoxFor(m => m.Order.CustomerAddress, new { @class = "form-control", autofocus = "autofocus" })
+        @Html.ValidationMessageFor(m => m.Order.CustomerAddress, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Order.CustomerPhone)
+        @Html.TextBoxFor(m => m.Order.CustomerPhone, new { @class = "form-control", autofocus = "autofocus" })
+        @Html.ValidationMessageFor(m => m.Order.CustomerPhone, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Order.PaymentTypeId)
+        @Html.DropDownListFor(m => m.Order.PaymentTypeId, new SelectList(Model.PaymentTypes, "Id", "Name"), "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Order.PaymentTypeId, "", new { @class = "text-danger" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Next</button>
+}
+
+

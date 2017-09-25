@@ -205,6 +205,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\WishlistsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -238,6 +239,10 @@
     <Compile Include="Migrations\201709251728368_SeedPaymentTypesTable.Designer.cs">
       <DependentUpon>201709251728368_SeedPaymentTypesTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709252005250_AddAppUserToOrder.cs" />
+    <Compile Include="Migrations\201709252005250_AddAppUserToOrder.Designer.cs">
+      <DependentUpon>201709252005250_AddAppUserToOrder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Cart.cs" />
@@ -253,6 +258,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ItemFormViewModel.cs" />
     <Compile Include="ViewModels\ItemsViewModel.cs" />
+    <Compile Include="ViewModels\OrderViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -501,6 +507,9 @@
     <Content Include="Views\Items\Details.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
     <Content Include="Views\Wishlists\Index.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Orders\Create.cshtml" />
+    <Content Include="Views\Orders\Confirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -539,6 +548,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709251728368_SeedPaymentTypesTable.resx">
       <DependentUpon>201709251728368_SeedPaymentTypesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709252005250_AddAppUserToOrder.resx">
+      <DependentUpon>201709252005250_AddAppUserToOrder.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
