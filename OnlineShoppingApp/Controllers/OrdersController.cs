@@ -4,8 +4,10 @@ using OnlineShoppingApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace OnlineShoppingApp.Controllers
 {
@@ -16,12 +18,6 @@ namespace OnlineShoppingApp.Controllers
         public OrdersController()
         {
             context = new ApplicationDbContext();
-        }
-
-        [Authorize]
-        public ActionResult Index()
-        {
-            return View();
         }
 
         [Authorize]
@@ -81,9 +77,35 @@ namespace OnlineShoppingApp.Controllers
             return RedirectToAction("Confirmation", order);
         }
 
+        [Authorize]
         public ActionResult Confirmation(Order order)
         {
             return View(order);
+        }
+
+        [Authorize]
+        public ActionResult MyOrders()
+        {
+            var userId = User.Identity.GetUserId();
+
+            var orders = context.Orders.Where(o => o.User.Id == userId).ToList();
+
+            return View("MyOrders", orders);
+        }
+
+        [Authorize]
+        public ActionResult Details(int? orderId)
+        {
+            if (orderId == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var viewModel = new OrderDetailsViewModel()
+            {
+                Order = context.Orders.Single(o => o.Id == orderId),
+                OrderItems = context.OrderItems.Include(m => m.Item).Where(o => o.OrderId == orderId).ToList()
+            };
+
+            return View("Details", viewModel);
         }
     }
 }

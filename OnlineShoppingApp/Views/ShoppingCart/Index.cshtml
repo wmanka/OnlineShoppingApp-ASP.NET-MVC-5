@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 class="page-header">Shopping Cart</h2>
+<h2 class="well page-header">Shopping Cart</h2>
 
 @if ((List<Cart>)Session["Cart"] == null)
 {
@@ -70,5 +70,24 @@ else
         </tbody>
     </table>
 }
-<span class="glyphicon glyphicon-arrow-left"></span>
+
+<span class="continue glyphicon glyphicon-arrow-left"></span>
 @Html.ActionLink("Continue Shopping", "Index", "Items")
+
+<text class="proceed"><span class="glyphicon glyphicon-shopping-cart"></span>@Html.ActionLink("Checkout", "Create", "Orders")</text>
+
+
+@section Scripts{
+    <style>
+        .proceed{
+            float: right;
+            padding-right: 30px;
+        }
+
+        .continue{
+            float: left;
+            padding-left: 30px;
+        }
+    </style>
+    }
+

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<OnlineShoppingApp.Models.Order>
+
+@{
+    ViewBag.Title = "MyOrders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="well page-header">My Orders</h2>
+
+@if(!Model.Any())
+{
+    <p>You don't have any orders.</p>
+}
+
+<ul class="list-group">
+    @foreach(var order in Model)
+    {
+        <li class="list-group-item">
+            Order Id: @order.Id
+            <br />
+            Date: @String.Format("{0:g}", @order.DateOrdered)
+            <br />
+            @Html.ActionLink("View Order Details", "Details", new { orderId = order.Id }, null)
+            <br />    
+        </li>
+        
+    }
+</ul>
+

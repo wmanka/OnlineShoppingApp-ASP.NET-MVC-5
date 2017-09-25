@@ -1,0 +1,65 @@
+﻿@model OnlineShoppingApp.ViewModels.OrderDetailsViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="well page-header">Order Details</h2>
+
+<p>Order Id: @Model.Order.Id</p>
+<p>Date ordered: @String.Format("{0:g}", Model.Order.DateOrdered)</p>
+<p>
+    Payed:
+    @{
+        var isPayed = "No";
+        if (Model.Order.IsPayed)
+        {
+            isPayed = "Yes";
+        }
+    }
+    @isPayed
+</p>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <td><b>Name</b></td>
+            <td><b>Quantity</b></td>
+            <td>Price</td>
+            <td><b>Total</b></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var orderItem in Model.OrderItems)
+        {
+            <tr>
+                <td>@Html.ActionLink(@orderItem.Item.Name, "Details", "Items", new { id = orderItem.ItemId}, null)</td>
+                <td>@orderItem.Quantity</td>
+                <td>$@orderItem.Item.Price</td>
+                <td>$@orderItem.Price</td>
+            </tr>
+        }
+        <tr>
+            <td colspan="3"></td>
+            <td>Total: 
+            @{
+                double total = 0;
+                foreach (var orderItem in Model.OrderItems)
+                {
+                    total += orderItem.Price;
+                }
+            }
+            <b>$@total</b>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<p>Contact information:</p>
+<ul class="list-group">
+    <li class="list-group-item">Name: @Model.Order.CustomerName</li>
+    <li class="list-group-item">Email: @Model.Order.CustomerEmail</li>
+    <li class="list-group-item">Address: @Model.Order.CustomerAddress</li>
+    <li class="list-group-item">Phone: @Model.Order.CustomerPhone</li>
+</ul>

@@ -51,7 +51,7 @@ textarea {
 .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
     color: black;
     text-decoration: underline;
-    background-color: indianred;
+    background-color: darkcyan;
 }
 
 .category-list {

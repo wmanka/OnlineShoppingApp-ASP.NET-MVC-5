@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Add New Item</h2>
+<h2 class="well page-header">Add New Item</h2>
 
 @using (Html.BeginForm("Save", "Items", FormMethod.Post, new { @id = "ItemForm", enctype = "multipart/form-data" }))
 {
