@@ -1,31 +1,152 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+<br />
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<section class="bg-1 text-center">
+    <h1>Online Shopping Application</h1>
+    <p class="lead">Quickly buy and sell items.</p>
+</section>
+
+<br />
 
 <div class="row">
     <div class="col-md-4">
+        <p class="glyphiconP"><span class="glyphicon glyphicon-send gl"></span></p>
         <h2>Getting started</h2>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            This application gives you a fast way to sell your items. Register or log in, add item information and you're ready to go.
         </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        <p><a class="btn btn-default" href="@Url.Action("Register", "Account")">Learn more &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        <p class="glyphiconP"><span class="glyphicon glyphicon-shopping-cart gl"></span></p>
+        <h2>Buy items</h2>
+        <p>Search from huge selection of electronics, home supplies, clothes, sport accessories, toys etc. Buy now or add items to wishlist.</p>
+        <p><a class="btn btn-default" href="@Url.Action("Index", "Items")">Learn more &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <p class="glyphiconP"><span class="glyphicon glyphicon-usd gl"></span></p>
+        <h2>Easy payment</h2>
+        <p>You can easily pay for your order using credic cards like Visa and MasterCard or use PayPal.</p>
+        <p><a class="btn btn-default" href="@Url.Action("Register", "Account")">Learn more &raquo;</a></p>
     </div>
 </div>
+
+<br />
+
+<section class="bg-2 text-center">
+    <h1>Try now</h1>
+    <p class="lead">
+        <a class="btn btn-default" href="@Url.Action("Register", "Account")">Register</a>
+    </p>
+</section>
+
+
+@section Scripts{
+    <style>
+
+        p {
+            margin: 0 0 10px;
+            text-align: center;
+        }
+
+        .glyphiconP {
+            font-size: 30px;
+        }
+
+        .glyphicon {
+            vertical-align: middle;
+        }
+
+        h2, .h2 {
+            font-size: 30px;
+            text-align: center;
+        }
+
+        .divider {
+            height: 50px;
+        }
+
+        section {
+            height: 430px;
+            padding-top: 50px;
+            padding-bottom: 50px;
+            overflow: auto;
+        }
+
+        .bg-1 {
+            background: url('/Content/Images/homeImage.jpg') no-repeat top center fixed;
+            color: ghostwhite;
+            background-size: cover;
+        }
+
+        .bg-2 {
+            background: url('/Content/Images/homeImage2.jpg') no-repeat center center fixed;
+            color: black;
+            background-size: cover;
+        }
+
+        #footer {
+            height: 60px;
+            background-color: #585858;
+            margin-top: 50px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+            #footer a {
+                color: #efefef;
+            }
+
+    </style>
+
+    <script>
+        (function ($) {
+
+            $.fn.parallax = function (options) {
+
+                var windowHeight = $(window).height();
+
+                // Establish default settings
+                var settings = $.extend({
+                    speed: 0.15
+                }, options);
+
+                // Iterate over each object in collection
+                return this.each(function () {
+
+                    // Save a reference to the element
+                    var $this = $(this);
+
+                    // Set up Scroll Handler
+                    $(document).scroll(function () {
+
+                        var scrollTop = $(window).scrollTop();
+                        var offset = $this.offset().top;
+                        var height = $this.outerHeight();
+
+                        // Check if above or below viewport
+                        if (offset + height <= scrollTop || offset >= scrollTop + windowHeight) {
+                            return;
+                        }
+
+                        var yBgPosition = Math.round((offset - scrollTop) * settings.speed);
+
+                        // Apply the Y Background Position to Set the Parallax Effect
+                        $this.css('background-position', 'center ' + yBgPosition + 'px');
+
+                    });
+                });
+            }
+        }(jQuery));
+
+        $('.bg-1,.bg-3').parallax({
+            speed: 0.15
+        });
+
+        $('.bg-2').parallax({
+            speed: 0.25
+        });
+    </script>
+    }

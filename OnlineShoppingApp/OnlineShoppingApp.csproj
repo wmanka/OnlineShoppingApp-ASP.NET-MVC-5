@@ -353,6 +353,8 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\Images\homeImage.jpg" />
+    <Content Include="Content\Images\homeImage2.jpg" />
     <Content Include="Content\Images\Payment\logo1.png" />
     <Content Include="Content\Images\Payment\logo2.jpg" />
     <Content Include="Content\Images\Payment\logoPayPal_51x14.png" />
@@ -461,8 +463,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
