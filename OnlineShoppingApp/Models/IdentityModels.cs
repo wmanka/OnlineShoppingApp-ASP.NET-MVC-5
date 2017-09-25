@@ -28,6 +28,9 @@ namespace OnlineShoppingApp.Models
         public DbSet<Category> Categories { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Wishlist> Wishlists { get; set; }
+        public DbSet<PaymentType> PaymentTypes { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
