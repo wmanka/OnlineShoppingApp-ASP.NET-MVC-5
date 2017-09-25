@@ -34,6 +34,9 @@ namespace OnlineShoppingApp.Controllers
         {
             var userId = User.Identity.GetUserId();
 
+            if(userId == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
             if (context.Wishlists.Any(w => w.UserId == userId && w.ItemId == id))
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 

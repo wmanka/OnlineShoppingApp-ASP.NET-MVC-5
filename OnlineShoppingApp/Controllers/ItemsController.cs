@@ -145,5 +145,20 @@ namespace OnlineShoppingApp.Controllers
 
             return View(item);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Search(string searchtext)
+        {
+            var items = context.Items.Where(m => m.Name.Contains(searchtext) || m.Description.Contains(searchtext));
+
+            var viewModel = new ItemsViewModel()
+            {
+                Categories = context.Categories.ToList(),
+                Items = items
+            };
+
+            return View("Index", viewModel);
+        }
     }
 }

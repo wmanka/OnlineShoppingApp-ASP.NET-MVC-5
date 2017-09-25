@@ -4,15 +4,28 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <h2 class="page-header">Items</h2>
+
+
 <div class="col-md-2">
     <ul id="categories" class="list-group">
         @foreach (var category in Model.Categories)
         {
             <li class="list-group-item">@Html.ActionLink(@category.Name, "Filtered", new { categoryId = category.Id })</li>
-        }
+            }
     </ul>
 </div>
+
+
+<form action="@Url.Action("Search", "Items")" method="POST" class="col-md-10">
+    @Html.AntiForgeryToken()
+    <div class="form-group form-inline">
+        <input type="text" name="searchtext" class="form-control" placeholder="What are you looking for?">
+        <input type="submit" value="Search" class="btn btn-primary">
+    </div>
+</form>
+
 <div class="col-md-10">
     <table id="items" class=" table table-responsive table-hover col-md-10">
         <thead>

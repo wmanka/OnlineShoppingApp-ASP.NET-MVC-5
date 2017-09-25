@@ -13,6 +13,16 @@
 }
 else
 {
+    <p>Num of items:
+        @{ 
+            List<Cart> list = (List<Cart>)Session["Cart"];
+            var listLength = list.Count();
+        }
+        @listLength
+    @{ 
+        ViewBag.ListL = listLength;
+    }
+    </p>
 
     <table class="table table-hover table-bordered">
         <thead>
