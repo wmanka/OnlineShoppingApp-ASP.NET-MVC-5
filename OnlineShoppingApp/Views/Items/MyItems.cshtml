@@ -10,6 +10,11 @@
 <a class="btn btn-primary" href="@Url.Action("Create", "Items")">Add new item</a>
 <br /><br />
 
+@if(!Model.Items.Any())
+{
+    <p>You're not selling any items at the moment.</p>
+}
+
 <div class="col-md-12">
     <table id="items" class=" table table-bordered table-hover">
         <thead>
@@ -24,7 +29,6 @@
                         <img src="@item.PictureUrl" style="overflow: hidden; position: relative; width:100px; height:100px;" />
                     </td>
                     <td><a href="@Url.Action("Edit", "Items", new { id = item.Id })">@item.Name</a> </td>
-                    <td>@item.Description</td>
                     <td>@item.Category.Name</td>
                     <td>$@item.Price</td>
                     <td><a class="js-delete" data-item-id="@item.Id">Delete</a></td>

@@ -23,7 +23,35 @@
         <img src="~/Content/Images/Payment/logo2.jpg" style="overflow: hidden; position: relative; width:30px; height:15px;" />
     </p>
     <br />
-    <button class="btn btn-default">@Html.ActionLink("Add to cart ", "OrderNow", "ShoppingCart", new { id = Model.Id }, null)<span class="glyphicon glyphicon-shopping-cart"></span></button>
-    <button class="btn btn-default">Add to wishlist</button>
+    <span class="btn btn-default">@Html.ActionLink("Add to cart ", "OrderNow", "ShoppingCart", new { id = Model.Id }, null)<span class="glyphicon glyphicon-shopping-cart"></span></span>
+    @{
+        if (User.Identity.IsAuthenticated)
+        {
+            <span class="js-add-wishlist btn btn-default" data-item-id="@Model.Id">Add to wishlist <span class="glyphicon glyphicon-heart-empty"></span></span>
+        }
+    }
+
 </div>
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(".js-add-wishlist").click(function (e) {
+                var button = $(e.target);
+                $.ajax(
+                    {
+                        url: "/api/Wishlist/" + button.attr('data-item-id'),
+                        method: "GET",
+                        success: function () {
+                            button.html("Added to wishlist")
+                            toastr.success("Item successfully added to your wishlist.");
+                        },
+
+                    }
+                );
+            })
+        });
+    </script>
+}
 

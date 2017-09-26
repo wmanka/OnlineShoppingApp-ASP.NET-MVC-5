@@ -47,9 +47,17 @@
                     <td>
                         <b>$@(item.Price)</b>
                         <br />
-                        @Html.ActionLink("Add to cart ", "OrderNow", "ShoppingCart", new { id = item.Id }, null )<span class="glyphicon glyphicon-shopping-cart"></span>
+                        <span class="js-toggle-cart">
+                            @Html.ActionLink("Add to cart ", "OrderNow", "ShoppingCart", new { id = item.Id }, null )
+                        </span>
+                        <span class="glyphicon glyphicon-shopping-cart"></span>
                         <br />
-                        <a class="js-add-wishlist" data-item-id="@item.Id">Add to wishlist </a><span class="glyphicon glyphicon-heart-empty"></span>
+                        @{
+                            if (User.Identity.IsAuthenticated)
+                            {
+                                <a class="js-add-wishlist" data-item-id="@item.Id">Add to wishlist </a><span class="glyphicon glyphicon-heart-empty"></span>
+                            }
+                        }            
                     </td>
                 </tr>
             }
@@ -67,9 +75,10 @@
                         url: "/api/Wishlist/" + button.attr('data-item-id'),
                         method: "GET",
                         success: function () {
+                            button.html("Added to wishlist")
                             toastr.success("Item successfully added to your wishlist.");
                         },
-                        
+
                     }
                 );
             })

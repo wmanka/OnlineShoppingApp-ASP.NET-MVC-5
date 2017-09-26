@@ -14,12 +14,11 @@
 
     <div class="form-group">
         @Html.LabelFor(m => m.Item.Name)
-        @Html.TextBoxFor(m => m.Item.Name, new { @class = "form-control", autofocus = "autofocus" })
+        @Html.TextAreaFor(m => m.Item.Name, new { @class = "form-control", autofocus = "autofocus" })
         @Html.ValidationMessageFor(m => m.Item.Name, "", new { @class = "text-danger" })
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Item.Description)
-        @Html.TextBoxFor(m => m.Item.Description, new { @class = "form-control" })
+        @Html.TextAreaFor(m => m.Item.Description, new { @class = "form-control texteditor" })
         @Html.ValidationMessageFor(m => m.Item.Description, "", new { @class = "text-danger" })
     </div>
     <div class="form-group">
@@ -58,4 +57,10 @@
             });
         });
     </script>
+
+    <style>
+        .texteditor{
+            min-height: 100px;
+        }
+    </style>
 }

@@ -6,6 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using OnlineShoppingApp.Models;
+using OnlineShoppingApp.Passwords;
 
 namespace OnlineShoppingApp
 {
@@ -54,9 +55,9 @@ namespace OnlineShoppingApp
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: FacebookAuthorization.FacebookAppId,
+               appSecret: FacebookAuthorization.FacebookSecret);
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

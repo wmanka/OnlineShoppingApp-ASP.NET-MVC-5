@@ -74,8 +74,12 @@ namespace OnlineShoppingApp.Controllers
 
             context.SaveChanges();
 
+            Session.Remove("Cart");
+
             return RedirectToAction("Confirmation", order);
         }
+
+        // Payment page
 
         [Authorize]
         public ActionResult Confirmation(Order order)
