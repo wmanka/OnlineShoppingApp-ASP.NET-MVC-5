@@ -47,18 +47,27 @@ namespace OnlineShoppingApp.Controllers
                 return View("Create", viewModel);
             }
 
+            var paymentTypeId = order.PaymentTypeId;
+
             var userId = User.Identity.GetUserId();
             var currentUser = context.Users.Single(u => u.Id == userId);
+
+            var cartItems = (List<Cart>)Session["Cart"];
+
+            double fullPrice = 0;
+            foreach (var item in cartItems)
+            {
+                fullPrice += item.Item.Price * item.Quantity;
+            }
 
             order.User = currentUser;
             order.DateOrdered = DateTime.Now;
             order.IsPayed = false;
             order.HasBeenShipped = false;
+            order.FullPrice = fullPrice;
 
             context.Orders.Add(order);
             context.SaveChanges();
-
-            var cartItems = (List<Cart>)Session["Cart"];
 
             foreach(var item in cartItems)
             {
@@ -74,10 +83,13 @@ namespace OnlineShoppingApp.Controllers
             }
 
             context.SaveChanges();
+           
+           // Session.Remove("Cart");
 
-            Session.Remove("Cart");
+            if(paymentTypeId == 3)
+                return RedirectToAction("Pay", "PayPal");
 
-            return RedirectToAction("Confirmation", order);
+            return RedirectToAction("Confiration", "Orders");
         }
 
         // Payment page
@@ -111,6 +123,14 @@ namespace OnlineShoppingApp.Controllers
             };
 
             return View("Details", viewModel);
+        }
+
+        [Authorize]
+        public ActionResult RedirectAndClearCart()
+        {
+            Session.Remove("Cart");
+
+            return RedirectToAction("MyOrders");
         }
     }
 }

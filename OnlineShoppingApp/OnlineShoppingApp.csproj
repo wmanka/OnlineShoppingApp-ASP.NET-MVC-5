@@ -206,6 +206,7 @@
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\PayPalController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\WishlistsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -247,6 +248,10 @@
     <Compile Include="Migrations\201709261253121_AddMorePropToOrderTable.Designer.cs">
       <DependentUpon>201709261253121_AddMorePropToOrderTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709261506513_AddFullPricePropToOderTable.cs" />
+    <Compile Include="Migrations\201709261506513_AddFullPricePropToOderTable.Designer.cs">
+      <DependentUpon>201709261506513_AddFullPricePropToOderTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Cart.cs" />
@@ -259,6 +264,7 @@
     <Compile Include="Models\PaymentType.cs" />
     <Compile Include="Models\Wishlist.cs" />
     <Compile Include="Passwords\FacebookAuthorization.cs" />
+    <Compile Include="Passwords\PayPalAuthorization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ItemFormViewModel.cs" />
@@ -517,6 +523,7 @@
     <Content Include="Views\Orders\Confirmation.cshtml" />
     <Content Include="Views\Orders\MyOrders.cshtml" />
     <Content Include="Views\Orders\Details.cshtml" />
+    <Content Include="Views\PayPal\Pay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -561,6 +568,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709261253121_AddMorePropToOrderTable.resx">
       <DependentUpon>201709261253121_AddMorePropToOrderTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709261506513_AddFullPricePropToOderTable.resx">
+      <DependentUpon>201709261506513_AddFullPricePropToOderTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -7,98 +7,99 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 class="well page-header">Create New Order</h2>
+    <h2 class="well page-header">Create New Order</h2>
 
-<div class="col-md-4">
-    @using (Html.BeginForm("Create", "Orders"))
-    {
-        @Html.AntiForgeryToken()
-        @Html.HiddenFor(m => m.Order.Id)
+    <div class="col-md-4">
+        @using (Html.BeginForm("Create", "Orders"))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.Order.Id)
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.Order.CustomerName)
-            @Html.TextBoxFor(m => m.Order.CustomerName, new { @class = "form-control", autofocus = "autofocus" })
-            @Html.ValidationMessageFor(m => m.Order.CustomerName, "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Order.CustomerEmail)
-            @Html.TextBoxFor(m => m.Order.CustomerEmail, new { @class = "form-control", autofocus = "autofocus" })
-            @Html.ValidationMessageFor(m => m.Order.CustomerEmail, "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Order.CustomerPhone)
-            @Html.TextBoxFor(m => m.Order.CustomerPhone, new { @class = "form-control", autofocus = "autofocus" })
-            @Html.ValidationMessageFor(m => m.Order.CustomerPhone, "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Order.CustomerAddress)
-            @Html.TextBoxFor(m => m.Order.CustomerAddress, new { @class = "form-control", autofocus = "autofocus" })
-            @Html.ValidationMessageFor(m => m.Order.CustomerAddress, "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Order.CustomerPostalCode)
-            @Html.TextBoxFor(m => m.Order.CustomerPostalCode, new { @class = "form-control", autofocus = "autofocus" })
-            @Html.ValidationMessageFor(m => m.Order.CustomerPostalCode, "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Order.CustomerCity)
-            @Html.TextBoxFor(m => m.Order.CustomerCity, new { @class = "form-control", autofocus = "autofocus" })
-            @Html.ValidationMessageFor(m => m.Order.CustomerCity, "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Order.CustomerCountry)
-            @Html.TextBoxFor(m => m.Order.CustomerCountry, new { @class = "form-control", autofocus = "autofocus" })
-            @Html.ValidationMessageFor(m => m.Order.CustomerCountry, "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Order.PaymentTypeId)
-            @Html.DropDownListFor(m => m.Order.PaymentTypeId, new SelectList(Model.PaymentTypes, "Id", "Name"), "", new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Order.PaymentTypeId, "", new { @class = "text-danger" })
-        </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Order.CustomerName)
+                @Html.TextBoxFor(m => m.Order.CustomerName, new { @class = "form-control", autofocus = "autofocus" })
+                @Html.ValidationMessageFor(m => m.Order.CustomerName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Order.CustomerEmail)
+                @Html.TextBoxFor(m => m.Order.CustomerEmail, new { @class = "form-control", autofocus = "autofocus" })
+                @Html.ValidationMessageFor(m => m.Order.CustomerEmail, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Order.CustomerPhone)
+                @Html.TextBoxFor(m => m.Order.CustomerPhone, new { @class = "form-control", autofocus = "autofocus" })
+                @Html.ValidationMessageFor(m => m.Order.CustomerPhone, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Order.CustomerAddress)
+                @Html.TextBoxFor(m => m.Order.CustomerAddress, new { @class = "form-control", autofocus = "autofocus" })
+                @Html.ValidationMessageFor(m => m.Order.CustomerAddress, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Order.CustomerPostalCode)
+                @Html.TextBoxFor(m => m.Order.CustomerPostalCode, new { @class = "form-control", autofocus = "autofocus" })
+                @Html.ValidationMessageFor(m => m.Order.CustomerPostalCode, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Order.CustomerCity)
+                @Html.TextBoxFor(m => m.Order.CustomerCity, new { @class = "form-control", autofocus = "autofocus" })
+                @Html.ValidationMessageFor(m => m.Order.CustomerCity, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Order.CustomerCountry)
+                @Html.TextBoxFor(m => m.Order.CustomerCountry, new { @class = "form-control", autofocus = "autofocus" })
+                @Html.ValidationMessageFor(m => m.Order.CustomerCountry, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Order.PaymentTypeId)
+                @Html.DropDownListFor(m => m.Order.PaymentTypeId, new SelectList(Model.PaymentTypes, "Id", "Name"), "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Order.PaymentTypeId, "", new { @class = "text-danger" })
+            </div>
 
-        <button type="submit" class="btn btn-primary">Next</button>
-        <span class="btn btn-default">@Html.ActionLink("Cancel", "Index", "ShoppingCart")</span>
-    }
-</div>
+            <button type="submit" class="btn btn-primary">Next</button>
 
-<div class="col-md-7 col-md-offset-1">
+            <span class="btn btn-default">@Html.ActionLink("Cancel", "Index", "ShoppingCart")</span>
+        }
+    </div>
 
-    <h3>Order Details: </h3>
-    <br />
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Total</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var cart in (List<Cart>)Session["Cart"])
-            {
+    <div class="col-md-7 col-md-offset-1">
+
+        <h3>Order Details: </h3>
+        <br />
+        <table class="table table-hover">
+            <thead>
                 <tr>
-                    <td>@cart.Item.Name</td>
-                    <td>@cart.Quantity</td>
-                    <td>$@cart.Item.Price</td>
-                    <td>$@(cart.Item.Price * cart.Quantity)</td>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th></th>
                 </tr>
-            }
-            <tr>
-                <td colspan="3"></td>
-                <td colspan="1">
-                    Total:
-                    @{
-                        List<Cart> temp = (List<Cart>)Session["Cart"];
-                        var total = temp.Sum(x => (double)(x.Quantity * x.Item.Price));
-                    }
-                    <b>$@total</b>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                @foreach (var cart in (List<Cart>)Session["Cart"])
+            {
+                    <tr>
+                        <td>@cart.Item.Name</td>
+                        <td>@cart.Quantity</td>
+                        <td>$@cart.Item.Price</td>
+                        <td>$@(cart.Item.Price * cart.Quantity)</td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="3"></td>
+                    <td colspan="1">
+                        Total:
+                        @{
+                            List<Cart> temp = (List<Cart>)Session["Cart"];
+                            var total = temp.Sum(x => (double)(x.Quantity * x.Item.Price));
+                        }
+                        <b>$@total</b>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
 
 

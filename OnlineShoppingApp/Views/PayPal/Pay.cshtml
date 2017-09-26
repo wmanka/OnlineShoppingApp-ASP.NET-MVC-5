@@ -1,0 +1,70 @@
+﻿@using OnlineShoppingApp.Models;
+@using OnlineShoppingApp.Passwords;
+
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+</head>
+<body>
+    <br />
+    <p class="well">Pay for your oder using PayPal: </p>
+
+    <div id="paypal-button-container"></div>
+    <br />
+</body>
+
+@section Scripts{
+    <script>
+        paypal.Button.render({
+
+            env: 'sandbox', // sandbox | production
+
+            // PayPal Client IDs - replace with your own
+            // Create a PayPal app: https://developer.paypal.com/developer/applications/create
+            client: {
+                sandbox: "AWCCUfrEnfGEQFF9Vi-PTsu4B0spl1VfhrG9akCbIBJ_9Zt2SqVf6hc0a3ilkIHCblALuz9xxEwcSHcy",
+                production: '<insert production client id>'
+            },
+
+            // Show the buyer a 'Pay Now' button in the checkout flow
+            commit: true,
+
+            // payment() is called when the button is clicked
+            payment: function (data, actions) {
+
+                // Make a call to the REST api to create the payment
+                return actions.payment.create({
+                    payment: {
+                        transactions: [
+                            {
+                                amount: {
+                                    total:
+                                @{
+                                     List<Cart> temp = (List<Cart>)Session["Cart"];
+                                     var total = temp.Sum(x => (int)(x.Quantity * x.Item.Price));
+
+                                }
+                                    @total, currency: 'USD'
+                                }
+                            }
+                        ]
+                    }
+                });
+            },
+
+            // onAuthorize() is called when the buyer approves the payment
+            onAuthorize: function (data, actions) {
+
+                // Make a call to the REST api to execute the payment
+                return actions.payment.execute().then(function () {
+                    bootbox.alert('Payment Successfully completed!');
+                    window.location.href = '/Orders/RedirectAndClearCart';
+                });
+            }
+
+        }, '#paypal-button-container');
+
+    </script>
+}

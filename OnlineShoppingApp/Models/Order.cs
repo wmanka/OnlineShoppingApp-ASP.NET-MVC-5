@@ -20,6 +20,8 @@ namespace OnlineShoppingApp.Models
 
         public bool HasBeenShipped { get; set; }
 
+        public double FullPrice { get; set; }
+
         [Required]
         [Display(Name = "Payment")]
         public int PaymentTypeId { get; set; }
