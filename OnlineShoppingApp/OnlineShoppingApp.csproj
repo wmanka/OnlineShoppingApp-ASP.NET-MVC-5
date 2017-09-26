@@ -243,6 +243,10 @@
     <Compile Include="Migrations\201709252005250_AddAppUserToOrder.Designer.cs">
       <DependentUpon>201709252005250_AddAppUserToOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709261253121_AddMorePropToOrderTable.cs" />
+    <Compile Include="Migrations\201709261253121_AddMorePropToOrderTable.Designer.cs">
+      <DependentUpon>201709261253121_AddMorePropToOrderTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Cart.cs" />
@@ -554,6 +558,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709252005250_AddAppUserToOrder.resx">
       <DependentUpon>201709252005250_AddAppUserToOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709261253121_AddMorePropToOrderTable.resx">
+      <DependentUpon>201709261253121_AddMorePropToOrderTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

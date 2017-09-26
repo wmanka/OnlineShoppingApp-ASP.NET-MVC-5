@@ -49,7 +49,7 @@ else
                         @Html.ActionLink(" -", "RemoveOne", "ShoppingCart", new { id = cart.Item.Id}, null)
                     </td>
                     <td>$@cart.Item.Price</td>
-                    <td>$@(String.Format("{0:N0}", cart.Item.Price * cart.Quantity))</td>
+                    <td>$@(cart.Item.Price * cart.Quantity)</td>
                     <td>
                         @Html.ActionLink("Delete", "Delete", "ShoppingCart",
                    new { id = cart.Item.Id }, new { onclick = "return confirm('Are you sure you want to delete this item?');" })
@@ -62,7 +62,7 @@ else
                     Total:
                     @{
                         List<Cart> temp = (List<Cart>)Session["Cart"];
-                        var total = String.Format("{0:N0}", temp.Sum(x => x.Quantity * x.Item.Price));
+                        var total = temp.Sum(x => x.Quantity * x.Item.Price);
                     }
                     <b>$@total</b>
                 </td>

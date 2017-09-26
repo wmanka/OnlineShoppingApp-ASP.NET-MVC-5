@@ -53,6 +53,7 @@ namespace OnlineShoppingApp.Controllers
             order.User = currentUser;
             order.DateOrdered = DateTime.Now;
             order.IsPayed = false;
+            order.HasBeenShipped = false;
 
             context.Orders.Add(order);
             context.SaveChanges();

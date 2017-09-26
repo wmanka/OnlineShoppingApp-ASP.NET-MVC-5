@@ -20,6 +20,17 @@
     }
     @isPayed
 </p>
+<p>
+    Shipped:
+    @{
+        var hasBennShipped = "Not yet";
+        if (Model.Order.HasBeenShipped)
+        {
+            hasBennShipped = "Yes";
+        }
+    }
+    @hasBennShipped
+</p>
 
 <table class="table table-hover">
     <thead>
@@ -60,6 +71,8 @@
 <ul class="list-group">
     <li class="list-group-item">Name: @Model.Order.CustomerName</li>
     <li class="list-group-item">Email: @Model.Order.CustomerEmail</li>
-    <li class="list-group-item">Address: @Model.Order.CustomerAddress</li>
     <li class="list-group-item">Phone: @Model.Order.CustomerPhone</li>
+    <li class="list-group-item">Address: @Model.Order.CustomerAddress</li>
+    <li class="list-group-item">Phone: @Model.Order.CustomerCity</li>
+    <li class="list-group-item">Phone: @Model.Order.CustomerPostalCode</li>
 </ul>

@@ -18,6 +18,8 @@ namespace OnlineShoppingApp.Models
 
         public bool IsPayed { get; set; }
 
+        public bool HasBeenShipped { get; set; }
+
         [Required]
         [Display(Name = "Payment")]
         public int PaymentTypeId { get; set; }
@@ -29,8 +31,23 @@ namespace OnlineShoppingApp.Models
 
         [Required]
         [StringLength(100)]
-        [Display(Name = "Address")]
+        [Display(Name = "Street")]
         public string CustomerAddress { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        [Display(Name = "City")]
+        public string CustomerCity { get; set; }
+
+        [Required]
+        [StringLength(10)]
+        [Display(Name = "PostalCode")]
+        public string CustomerPostalCode { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        [Display(Name = "Country")]
+        public string CustomerCountry { get; set; }
 
         [Required]
         [Display(Name = "Phone Number")]
