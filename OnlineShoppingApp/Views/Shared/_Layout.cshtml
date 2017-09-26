@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using OnlineShoppingApp.Models;
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -24,6 +25,20 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("All Items", "Index", "Items")</li>
                     <li>@Html.ActionLink("Sell Item", "Create", "Items")</li>
+                    <li>
+                        <a href="@Url.Action("Index", "ShoppingCart")">
+                            <span class="glyphicon glyphicon-shopping-cart glyph"></span>
+                            @{
+                                var cart = (List<Cart>)Session["Cart"];
+                                var countItems = 0;
+                                if (!(cart == null))
+                                {
+                                    countItems = cart.Count();
+                                }
+                                <span>Shopping cart (@countItems)</span>
+                            }
+                        </a>
+                    </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -41,3 +56,10 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
+<style>
+    .glyph {
+        float: right;
+    }
+
+</style>

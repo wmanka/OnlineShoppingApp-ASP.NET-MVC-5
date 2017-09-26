@@ -9,10 +9,10 @@
 </head>
 <body>
     <br />
-    <p class="well">Pay for your oder using PayPal: </p>
+    <p>Pay for your oder using PayPal: </p>
 
-    <div id="paypal-button-container"></div>
-    <br />
+    <div class="col-md-6" id="paypal-button-container"></div>
+    <br /><br />
 </body>
 
 @section Scripts{
@@ -20,6 +20,13 @@
         paypal.Button.render({
 
             env: 'sandbox', // sandbox | production
+
+            style: {
+                label: 'checkout',  // checkout | credit | pay | buynow | generic
+                size: 'medium', // small | medium | large | responsive
+                shape: 'pill',   // pill | rect
+                color: 'gold',   // gold | blue | silver | black
+            },
 
             // PayPal Client IDs - replace with your own
             // Create a PayPal app: https://developer.paypal.com/developer/applications/create

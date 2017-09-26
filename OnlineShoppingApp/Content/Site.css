@@ -43,6 +43,11 @@ textarea {
     font-size: 16px;
 }
 
+.nav > li {
+    position: relative;
+    display: inline-flex;
+}
+
 .navbar-inverse .navbar-nav > .dropdown > a .caret {
     border-top-color: black;
     border-bottom-color: black;

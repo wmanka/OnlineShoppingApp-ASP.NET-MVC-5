@@ -130,6 +130,11 @@ namespace OnlineShoppingApp.Controllers
         {
             Session.Remove("Cart");
 
+            var order = context.Orders.Last();
+            order.IsPayed = true;
+            
+            context.SaveChanges();
+
             return RedirectToAction("MyOrders");
         }
     }
