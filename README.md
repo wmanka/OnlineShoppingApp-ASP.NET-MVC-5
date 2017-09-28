@@ -1,15 +1,15 @@
 # Online Shopping App
-It's a ASP.NET MVC 5 Web Shop application.
+It's an ASP.NET MVC 5 Web Shop application.
 
 <h3>Main functions:</h3>
 <ul>
 <li>Registered users can sell items</li>
-<li>Users can browse items list and items details</li>
-<li>Users can add items to cart, change their quantity and see final price</li>
+<li>All users can browse list of items and see their details like price, description, seller information</li>
+<li>All users can add items to cart, change their quantity and check total price</li>
 <li>Users can manage their wishlists</li>
 <li>Registered users can place orders and pay with credit card or PayPal</li>
 <li>Users can log in using Facebook</li>
-<li>Registered users can add other users to favourite sellers list</li>
+<li>Registered users can mark other users as favourite and manage them on favourite sellers list</li>
 </ul>
 
 <h3>Technologies used:</h3>
