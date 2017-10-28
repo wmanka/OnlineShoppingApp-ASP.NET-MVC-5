@@ -25,7 +25,7 @@ namespace OnlineShoppingApp.Controllers
         {
             var viewModel = new ItemsViewModel()
             {
-                Items = context.Items.Include(m => m.Category).ToList(),
+                Items = context.Items.Include(m => m.Category).ToList().OrderBy(m => m.Name),
                 Categories = context.Categories.ToList()
             };
 

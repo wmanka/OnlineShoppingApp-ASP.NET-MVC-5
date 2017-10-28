@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 class="well text-center">All Items</h2>
+<h2 class="well items">All Items</h2>
 <br />
 
 <div class="col-md-2">
@@ -18,12 +18,15 @@
 </div>
 
 
-<form action="@Url.Action("Search", "Items")" method="POST" class="col-md-10">
+<form action="@Url.Action("Search", "Items")" method="POST" class="col-md-10 search">
     @Html.AntiForgeryToken()
-    <div class="form-group form-inline">
-        <input type="text" name="searchtext" class="form-control" placeholder="What are you looking for?">
-        <input type="submit" value="Search" class="btn btn-primary">
+    <div class="row">
+        <div class="form-group form-inline ">
+            <input type="text" name="searchtext" class="form-control" placeholder="What are you looking for?">
+            <input type="submit" value="Search" class="btn btn-primary">
+        </div>
     </div>
+
 </form>
 
 <div class="col-md-10">
