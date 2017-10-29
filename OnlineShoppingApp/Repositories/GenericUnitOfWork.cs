@@ -9,36 +9,41 @@ namespace OnlineShoppingApp.Repositories
 {
     public class GenericUnitOfWork : IDisposable
     {
-        private ApplicationDbContext db = null;
+        private ApplicationDbContext context = null;
         public GenericUnitOfWork()
         {
-            db = new ApplicationDbContext();
+            context = new ApplicationDbContext();
         }
 
         public Dictionary<Type, object> repositories = new Dictionary<Type, object>();
+
         public IRepository<T> Repository<T>() where T : class
         {
             if (repositories.Keys.Contains(typeof(T)) == true)
                 return repositories[typeof(T)] as IRepository<T>;
             
-            IRepository<T> repo = new GenericRepository<T>(db);
+            IRepository<T> repo = new GenericRepository<T>(context);
             repositories.Add(typeof(T), repo);
             return repo;
         }
+
         public void SaveChanges()
         {
-            db.SaveChanges();
+            context.SaveChanges();
         }
+
         private bool disposed = false;
+
         protected virtual void Dispose(bool disposing)
         {
             if (!this.disposed)
             {
                 if (disposing)
-                    db.Dispose();
+                    context.Dispose();
             }
             this.disposed = true;
         }
+
         public void Dispose()
         {
             throw new NotImplementedException();

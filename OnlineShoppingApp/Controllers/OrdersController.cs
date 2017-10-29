@@ -8,16 +8,22 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using OnlineShoppingApp.Repositories;
 
 namespace OnlineShoppingApp.Controllers
 {
     public class OrdersController : Controller
     {
-        private ApplicationDbContext context;
+        private GenericUnitOfWork unitOfWork = null;
 
         public OrdersController()
         {
-            context = new ApplicationDbContext();
+            unitOfWork = new GenericUnitOfWork();
+        }
+
+        public OrdersController(GenericUnitOfWork unitOW)
+        {
+            this.unitOfWork = unitOW;
         }
 
         [Authorize]
@@ -26,7 +32,7 @@ namespace OnlineShoppingApp.Controllers
             var viewModel = new OrderViewModel()
             {
                 Order = new Order(),
-                PaymentTypes = context.PaymentTypes.ToList()
+                PaymentTypes = GetPaymentTypes()
             };
 
             return View("Create", viewModel);
@@ -41,7 +47,7 @@ namespace OnlineShoppingApp.Controllers
                 var viewModel = new OrderViewModel()
                 {
                     Order = order,
-                    PaymentTypes = context.PaymentTypes.ToList()
+                    PaymentTypes = GetPaymentTypes()
                 };
 
                 return View("Create", viewModel);
@@ -49,10 +55,7 @@ namespace OnlineShoppingApp.Controllers
 
             var paymentTypeId = order.PaymentTypeId;
 
-            var userId = User.Identity.GetUserId();
-            var currentUser = context.Users.Single(u => u.Id == userId);
-
-            var cartItems = (List<Cart>)Session["Cart"];
+            var cartItems = (List<Cart>)Session[Cart];
 
             double fullPrice = 0;
             foreach (var item in cartItems)
@@ -60,14 +63,14 @@ namespace OnlineShoppingApp.Controllers
                 fullPrice += item.Item.Price * item.Quantity;
             }
 
-            order.User = currentUser;
+            order.User = GetCurrentUser();
             order.DateOrdered = DateTime.Now;
             order.IsPayed = false;
             order.HasBeenShipped = false;
             order.FullPrice = fullPrice;
 
-            context.Orders.Add(order);
-            context.SaveChanges();
+            unitOfWork.Repository<Order>().Add(order);
+            unitOfWork.SaveChanges();
 
             foreach(var item in cartItems)
             {
@@ -79,17 +82,15 @@ namespace OnlineShoppingApp.Controllers
                     Price = item.Item.Price * item.Quantity
                 };
 
-                context.OrderItems.Add(orderItem);
+                unitOfWork.Repository<OrderItem>().Add(orderItem);
             }
 
-            context.SaveChanges();
-           
-           // Session.Remove("Cart");
+            unitOfWork.SaveChanges(); 
 
             if(paymentTypeId == 3)
                 return RedirectToAction("Pay", "PayPal");
 
-            return RedirectToAction("Confiration", "Orders");
+            return RedirectToAction("Confirmation", "Orders");
         }
 
         // Payment page
@@ -103,9 +104,7 @@ namespace OnlineShoppingApp.Controllers
         [Authorize]
         public ActionResult MyOrders()
         {
-            var userId = User.Identity.GetUserId();
-
-            var orders = context.Orders.Where(o => o.User.Id == userId).ToList();
+            var orders = GetOrders().Where(o => o.User == GetCurrentUser());
 
             return View("MyOrders", orders);
         }
@@ -118,8 +117,9 @@ namespace OnlineShoppingApp.Controllers
 
             var viewModel = new OrderDetailsViewModel()
             {
-                Order = context.Orders.Single(o => o.Id == orderId),
-                OrderItems = context.OrderItems.Include(m => m.Item).Where(o => o.OrderId == orderId).ToList()
+                Order = unitOfWork.Repository<Order>().GetDetail(o => o.Id == orderId),
+                OrderItems = unitOfWork.Repository<OrderItem>().GetAll().Where(o => o.OrderId == orderId)
+                // Include(m => m.Item)
             };
 
             return View("Details", viewModel);
@@ -128,11 +128,32 @@ namespace OnlineShoppingApp.Controllers
         [Authorize]
         public ActionResult RedirectAndClearCart()
         {
-            Session.Remove("Cart");
+            Session.Remove(Cart);
 
-            context.SaveChanges();
+            unitOfWork.SaveChanges();
 
             return RedirectToAction("MyOrders");
+        }
+
+
+        //
+
+        private string Cart = "Cart";
+
+        private IEnumerable<PaymentType> GetPaymentTypes()
+        {
+            return unitOfWork.Repository<PaymentType>().GetAll();
+        }
+
+        private ApplicationUser GetCurrentUser()
+        {
+            var userId = User.Identity.GetUserId();
+            return unitOfWork.Repository<ApplicationUser>().GetDetail(u => u.Id == userId);
+        }
+
+        private IEnumerable<Order> GetOrders()
+        {
+            return unitOfWork.Repository<Order>().GetAll();
         }
     }
 }

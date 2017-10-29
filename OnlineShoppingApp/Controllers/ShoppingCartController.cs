@@ -1,4 +1,5 @@
 ﻿using OnlineShoppingApp.Models;
+using OnlineShoppingApp.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +11,16 @@ namespace OnlineShoppingApp.Controllers
 {
     public class ShoppingCartController : Controller
     {
-        private ApplicationDbContext context;
+        private GenericUnitOfWork unitOfWork = null;
 
         public ShoppingCartController()
         {
-            context = new ApplicationDbContext();
+            unitOfWork = new GenericUnitOfWork();
+        }
+
+        public ShoppingCartController(GenericUnitOfWork unitOW)
+        {
+            this.unitOfWork = unitOW;
         }
 
         public ActionResult Index()
@@ -27,26 +33,26 @@ namespace OnlineShoppingApp.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            if(Session["Cart"] == null)
+            if(Session[Cart] == null)
             {
-                List<Cart> lsCart = new List<Cart>
+                var cartList = new List<Cart>
                 {
-                    new Cart(context.Items.Find(id), 1)
+                    new Cart(unitOfWork.Repository<Item>().GetDetail(m => m.Id == id), 1)
                 };
 
-                Session["Cart"] = lsCart;
+                Session[Cart] = cartList;
             }
             else
             {
-                List<Cart> lscart = (List<Cart>)Session["Cart"];
+                var cartList = (List<Cart>)Session[Cart];
 
                 var check = IsExisting(id);
                 if (check == -1)
-                    lscart.Add(new Cart(context.Items.Find(id), 1));
+                    cartList.Add(new Cart(unitOfWork.Repository<Item>().GetDetail(m => m.Id == id), 1));
                 else
-                    lscart[check].Quantity++;
+                    cartList[check].Quantity++;
 
-                Session["Cart"] = lscart;
+                Session[Cart] = cartList;
             }
 
             return View("Index");
@@ -54,10 +60,10 @@ namespace OnlineShoppingApp.Controllers
 
         private int IsExisting(int? id)
         {
-            List<Cart> lsCart = (List<Cart>)Session["Cart"];
-            for(int i = 0; i < lsCart.Count; i++)
+            var cartList = (List<Cart>)Session[Cart];
+            for(int i = 0; i < cartList.Count; i++)
             {
-                if (lsCart[i].Item.Id == id)
+                if (cartList[i].Item.Id == id)
                     return i;
             }
             return -1;
@@ -69,8 +75,8 @@ namespace OnlineShoppingApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             var check = IsExisting(id);
-            List<Cart> lsCart = (List<Cart>)Session["Cart"];
-            lsCart.RemoveAt(check);
+            var cartList = (List<Cart>)Session[Cart];
+            cartList.RemoveAt(check);
 
             return View("Index");
         }
@@ -81,8 +87,8 @@ namespace OnlineShoppingApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             var check = IsExisting(id);
-            List<Cart> lsCart = (List<Cart>)Session["Cart"];
-            lsCart[check].Quantity++;
+            var cartList = (List<Cart>)Session[Cart];
+            cartList[check].Quantity++;
 
             return View("Index");
         }
@@ -93,13 +99,15 @@ namespace OnlineShoppingApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             var check = IsExisting(id);
-            List<Cart> lsCart = (List<Cart>)Session["Cart"];
-            lsCart[check].Quantity--;
-            if (lsCart[check].Quantity == 0)
-                lsCart.RemoveAt(check);
+            var cartList = (List<Cart>)Session[Cart];
+            cartList[check].Quantity--;
+            if (cartList[check].Quantity == 0)
+                cartList.RemoveAt(check);
 
             return View("Index");
         }
 
+
+        private string Cart = "Cart";
     }
 }
