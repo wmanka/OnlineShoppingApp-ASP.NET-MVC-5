@@ -9,24 +9,40 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using Microsoft.AspNet.Identity;
 using System.Net;
+using OnlineShoppingApp.Interfaces;
+using OnlineShoppingApp.Repositories;
 
 namespace OnlineShoppingApp.Controllers
 {
     public class ItemsController : Controller
     {
-        private ApplicationDbContext context;
+        //private ApplicationDbContext context;
+        //public ItemsController()
+        //{
+        //    context = new ApplicationDbContext();
+        //}
+
+        private GenericUnitOfWork uow = null;
+
         public ItemsController()
         {
-            context = new ApplicationDbContext();
+            uow = new GenericUnitOfWork();
         }
 
+        public ItemsController(GenericUnitOfWork uow)
+        {
+            this.uow = uow;
+        }
 
         public ActionResult Index()
         {
+            var items = uow.Repository<Item>().GetAll().OrderBy(m => m.Name);
+            var categories = uow.Repository<Category>().GetAll();
+
             var viewModel = new ItemsViewModel()
             {
-                Items = context.Items.Include(m => m.Category).ToList().OrderBy(m => m.Name),
-                Categories = context.Categories.ToList()
+                Items = items,
+                Categories = categories
             };
 
             return View(viewModel);
@@ -34,30 +50,33 @@ namespace OnlineShoppingApp.Controllers
 
         public ActionResult Filtered(int? categoryId)
         {
+            var items = uow.Repository<Item>().GetAll().Where(m => m.CategoryId == categoryId).OrderBy(m => m.Name);
+            var categories = uow.Repository<Category>().GetAll();
+
             var viewModel = new ItemsViewModel()
             {
-                Items = context.Items.Include(m => m.Category).ToList().Where(m => m.CategoryId == categoryId),
-                Categories = context.Categories.ToList()
+                Items = items,
+                Categories = categories
             };
 
             return View("Index", viewModel);
         }
 
-        [Authorize]
-        public ActionResult MyItems()
-        {
-            var userId = User.Identity.GetUserId();
-            var user = context.Users.FirstOrDefault(u => u.Id == userId);
-            var items = context.Items.Include(m => m.Category).ToList().Where(m => m.User == user);
+        //[Authorize]
+        //public ActionResult MyItems()
+        //{
+        //    var userId = User.Identity.GetUserId();
+        //    var user = context.Users.FirstOrDefault(u => u.Id == userId);
+        //    var items = context.Items.Include(m => m.Category).ToList().Where(m => m.User == user);
 
-            var viewModel = new ItemsViewModel()
-            {
-                Items = items,
-                Categories = context.Categories.ToList()
-            };
+        //    var viewModel = new ItemsViewModel()
+        //    {
+        //        Items = items,
+        //        Categories = context.Categories.ToList()
+        //    };
 
-            return View(viewModel);
-        }
+        //    return View(viewModel);
+        //}
 
         [Authorize]
         public ActionResult Create()
@@ -65,96 +84,96 @@ namespace OnlineShoppingApp.Controllers
             var viewModel = new ItemFormViewModel()
             {
                 Item = new Item(),
-                Categories = context.Categories.ToList()
+                Categories = uow.Repository<Category>().GetAll()
             };
 
             return View("ItemForm", viewModel);
         }
 
-        [HttpPost]
-        [Authorize]
-        public ActionResult Save(Item item)
-        {
-            if (!ModelState.IsValid)
-            {
-                var viewModel = new ItemFormViewModel()
-                {
-                    Item = item,
-                    Categories = context.Categories.ToList()
-                };
+        //[HttpPost]
+        //[Authorize]
+        //public ActionResult Save(Item item)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        var viewModel = new ItemFormViewModel()
+        //        {
+        //            Item = item,
+        //            Categories = unitOfWork.Categories.GetAll()
+        //        };
 
-                return View("ItemForm", viewModel);
-            }
+        //        return View("ItemForm", viewModel);
+        //    }
 
-            var userId = User.Identity.GetUserId();
-            var currentUser = context.Users.Single(u => u.Id == userId);
+        //    var userId = User.Identity.GetUserId();
+        //    var currentUser = context.Users.Single(u => u.Id == userId);
 
-            item.User = currentUser;
+        //    item.User = currentUser;
 
-            if (item.Id == 0)
-            {
-                context.Items.Add(item);
-            }
-            else
-            {
-                var itemInDb = context.Items.Single(i => i.Id == item.Id);
-                itemInDb.Name = item.Name;
-                itemInDb.Description = item.Description;
-                itemInDb.Price = item.Price;
-                itemInDb.PictureUrl = item.PictureUrl;
-            }
+        //    if (item.Id == 0)
+        //    {
+        //        context.Items.Add(item);
+        //    }
+        //    else
+        //    {
+        //        var itemInDb = context.Items.Single(i => i.Id == item.Id);
+        //        itemInDb.Name = item.Name;
+        //        itemInDb.Description = item.Description;
+        //        itemInDb.Price = item.Price;
+        //        itemInDb.PictureUrl = item.PictureUrl;
+        //    }
 
-            context.SaveChanges();
+        //    context.SaveChanges();
 
-            return RedirectToAction("Index", "Items");
+        //    return RedirectToAction("Index", "Items");
 
-        }
+        //}
 
-        [Authorize]
-        public ActionResult Edit(int id)
-        {
-            var item = context.Items.SingleOrDefault(i => i.Id == id);
+        //[Authorize]
+        //public ActionResult Edit(int id)
+        //{
+        //    var item = context.Items.SingleOrDefault(i => i.Id == id);
 
-            var userId = User.Identity.GetUserId();
-            var curentUser = context.Users.Single(u => u.Id == userId);
+        //    var userId = User.Identity.GetUserId();
+        //    var curentUser = context.Users.Single(u => u.Id == userId);
 
-            if (!(item.User == curentUser))
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    if (!(item.User == curentUser))
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            if (item == null)
-                return HttpNotFound();
+        //    if (item == null)
+        //        return HttpNotFound();
 
-            var viewModel = new ItemFormViewModel()
-            {
-                Item = item,
-                Categories = context.Categories.ToList()
-            };
+        //    var viewModel = new ItemFormViewModel()
+        //    {
+        //        Item = item,
+        //        Categories = context.Categories.ToList()
+        //    };
 
-            return View("ItemForm", viewModel);
-        }
+        //    return View("ItemForm", viewModel);
+        //}
 
-        public ActionResult Details(int? id)
-        {
-            if(id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //public ActionResult Details(int? id)
+        //{
+        //    if(id == null)
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var item = context.Items.Include(i => i.Category).SingleOrDefault(i => i.Id == id);
+        //    var item = context.Items.Include(i => i.Category).SingleOrDefault(i => i.Id == id);
 
-            if (item == null)
-                return HttpNotFound();
+        //    if (item == null)
+        //        return HttpNotFound();
 
-            return View(item);
-        }
+        //    return View(item);
+        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Search(string searchtext)
         {
-            var items = context.Items.Where(m => m.Name.Contains(searchtext) || m.Description.Contains(searchtext));
+            var items = uow.Repository<Item>().GetAll().Where(m => m.Name.Contains(searchtext) || m.Description.Contains(searchtext));
 
             var viewModel = new ItemsViewModel()
             {
-                Categories = context.Categories.ToList(),
+                Categories = uow.Repository<Category>().GetAll(),
                 Items = items
             };
 

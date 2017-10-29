@@ -212,7 +212,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\IItemRepository.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Migrations\201709220948386_InitialModel.cs" />
     <Compile Include="Migrations\201709220948386_InitialModel.Designer.cs">
       <DependentUpon>201709220948386_InitialModel.cs</DependentUpon>
@@ -267,7 +267,12 @@
     <Compile Include="Passwords\FacebookAuthorization.cs" />
     <Compile Include="Passwords\PayPalAuthorization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\CategoryRepository.cs" />
+    <Compile Include="Repositories\GenericRepository.cs" />
+    <Compile Include="Repositories\GenericUnitOfWork.cs" />
     <Compile Include="Repositories\ItemRepository.cs" />
+    <Compile Include="Repositories\ItemRepositoryWithUoW.cs" />
+    <Compile Include="Repositories\UnitOfWork.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ItemFormViewModel.cs" />
     <Compile Include="ViewModels\ItemsViewModel.cs" />

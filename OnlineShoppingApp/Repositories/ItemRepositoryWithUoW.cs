@@ -9,13 +9,13 @@ using System.Linq.Expressions;
 
 namespace OnlineShoppingApp.Repositories
 {
-    public class ItemRepository : IRepository<Item>
+    public class ItemRepositoryWithUoW : IRepository<Item>
     {
-        private ApplicationDbContext context;
+        private ApplicationDbContext context = null;
 
-        public ItemRepository()
+        public ItemRepositoryWithUoW(ApplicationDbContext context)
         {
-            context = new ApplicationDbContext();
+            this.context = context;
         }
 
         public void Add(Item entity)
@@ -40,17 +40,12 @@ namespace OnlineShoppingApp.Repositories
 
         public IEnumerable<Item> GetOverview(Expression<Func<Item, bool>> predicate = null)
         {
-            if(predicate != null)
+            if (predicate != null)
             {
                 return context.Items.Where(predicate);
             }
 
             return context.Items;
-        }
-        
-        internal void Save()
-        {
-            context.SaveChanges();
         }
     }
 }
