@@ -1,0 +1,13 @@
+﻿@model OnlineShoppingApp.Models.ApplicationUser
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="page-header">Account Details</h2>
+<p>Name: @Model.Name account</p>
+<p>Email: @Model.Email</p>
+<p>Phone number: @Model.PhoneNumber</p>
+
+<a href="@Url.Action("Index", "Manage")">Edit Profile</a>
+
